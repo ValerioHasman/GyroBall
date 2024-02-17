@@ -1,0 +1,59 @@
+{
+  "name": "GyroBall",
+  "short_name": "GyroBall",
+  "start_url": "./index.html",
+  "display_override": [
+    "standalone",
+    "window-controls-overlay",
+    "minimal-ui",
+    "fullscreen",
+    "browser"
+  ],
+  "display": "standalone",
+  "background_color": "#404943",
+  "description": "Melhore o seu braço com GyroBall e monitore o desempenho.",
+  "lang": "pt-BR",
+  "icons": [
+    {
+      "src": "./icones/GyroBallMR.png",
+      "type": "image/png",
+      "sizes": "150x150",
+      "purpose": "maskable"
+    },
+    {
+      "src": "./icones/GyroBallAR.png",
+      "type": "image/png",
+      "sizes": "150x150",
+      "purpose": "any"
+    },
+    {
+      "src": "./icones/GyroBallM.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "maskable"
+    },
+    {
+      "src": "./icones/GyroBallA.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts" : [
+    {
+      "name": "Praticar",
+      "url": "./#praticar",
+      "description": "Pratique todos os dias e melhore cada vez mais."
+    },
+    {
+      "name": "Conquistas",
+      "url": "./#conquistas",
+      "description": "Veja as conquistas e treinos executados."
+    },
+    {
+      "name": "Configurações",
+      "url": "./#configuracao",
+      "description": "Modifique os registros de processamento de áudio."
+    }
+  ]
+}
