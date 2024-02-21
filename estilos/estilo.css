@@ -41,7 +41,7 @@ body {
 
 #ball {
   background-color: rgb(0, 0, 0);
-  min-height: 30vh;
+  min-height: 12vh;
   aspect-ratio: 1/1;
   border-radius: 50%;
   max-width: 100%;
@@ -112,4 +112,17 @@ body {
   border-bottom: 1rem solid transparent;
   border-left: 2rem solid #ff7b0080;
   transform: scale(2.3, 1) translate(0, -1rem);
+}
+
+@media (max-width: 576px) {
+  #ponteiro {
+    border-top: 0.5rem solid transparent;
+    border-bottom: 0.5rem solid transparent;
+    border-left: 1rem solid #ff7b0080;
+    transform: scale(2.3, 1) translate(0, -1rem);
+  }
+  .barraRPM div {
+    width: 1rem;
+    height: calc(100% / 6);
+  }
 }

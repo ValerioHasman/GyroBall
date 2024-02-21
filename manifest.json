@@ -39,21 +39,45 @@
       "purpose": "any"
     }
   ],
-  "shortcuts" : [
+  "shortcuts": [
     {
       "name": "Praticar",
       "url": "./#praticar",
-      "description": "Pratique todos os dias e melhore cada vez mais."
+      "description": "Pratique todos os dias e melhore cada vez mais.",
+      "icons": [
+        {
+          "src": "./icones/icone1.png",
+          "type": "image/png",
+          "sizes": "96x96",
+          "purpose": "maskable"
+        }
+      ]
     },
     {
       "name": "Conquistas",
       "url": "./#conquistas",
-      "description": "Veja as conquistas e treinos executados."
+      "description": "Veja as conquistas e treinos executados.",
+      "icons": [
+        {
+          "src": "./icones/icone2.png",
+          "type": "image/png",
+          "sizes": "96x96",
+          "purpose": "maskable"
+        }
+      ]
     },
     {
       "name": "Configurações",
       "url": "./#configuracao",
-      "description": "Modifique os registros de processamento de áudio."
+      "description": "Modifique os registros de processamento de áudio.",
+      "icons": [
+        {
+          "src": "./icones/icone3.png",
+          "type": "image/png",
+          "sizes": "96x96",
+          "purpose": "maskable"
+        }
+      ]
     }
   ]
 }

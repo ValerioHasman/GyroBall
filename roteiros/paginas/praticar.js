@@ -148,7 +148,7 @@ function inserirDadosNosGraficos(irpms) {
   kg.innerText = gb.kg;
   torque.innerText = gb.torque;
   ball.style.backgroundColor = gb.corHEX;
-  ball.style.boxShadow = `0 0 ${gb.procentagem * 2}rem ${gb.corHEX}`;
+  ball.style.boxShadow = `0 0 ${gb.procentagem * 2}rem ${gb.procentagem * 0.5}rem ${gb.corHEX}`;
   ponteiro.style.top = controlarPonteiro(gb.rpm);
 }
 
