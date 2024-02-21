@@ -96,7 +96,7 @@ export default class Modais{
 
     modal.insertAdjacentHTML('beforeend',
 `
-<div class="modal-dialog">
+<div class="modal-dialog modal-dialog-centered">
   <div class="modal-content">
     <div class="modal-header">
       <h1 class="modal-title fs-5"></h1>
