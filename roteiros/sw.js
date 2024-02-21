@@ -1,10 +1,13 @@
 export default function sw() {
-  if (navigator.onLine) {
+  if ("serviceWorker" in navigator) {
     navigator.serviceWorker.register('serviceWorker.js')
       .then(function (registration) {
-        if (registration.active) {
+        if (registration.active && navigator.onLine) {
           registration.unregister().then(function () {
-            console.info('Service Worker removido');
+            navigator.serviceWorker.register('serviceWorker.js')
+            .catch((eh)=>{
+              console.error('Registro Falhou', eh);
+            });
           });
         }
       })
