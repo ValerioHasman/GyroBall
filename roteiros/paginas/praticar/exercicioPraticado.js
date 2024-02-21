@@ -7,6 +7,13 @@ export default function (resultado, controle) {
   const gb = new GyroBall();
   gb.rpm = resultado.rpm;
 
+  function verConquistas() {
+    btn0.removeEventListener('click', verConquistas);
+    const ancora = document.createElement('a');
+    ancora.href = '#conquistas';
+    ancora.click();
+  }
+
   const conteudo = stringEmElemento(`
 <div>
   <p>Resultado da prática:</p>
@@ -42,11 +49,4 @@ export default function (resultado, controle) {
   btn0.addEventListener('click', verConquistas);
 
   return conteudo;
-}
-
-function verConquistas() {
-  const ancora = document.createElement('a');
-  ancora.href = '#conquistas';
-  ancora.click();
-  btn0.removeEventListener('click', verConquistas);
 }

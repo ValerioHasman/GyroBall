@@ -1,4 +1,3 @@
-:root,
 [data-bs-theme=light] .btn-outline-theme {
   --bs-btn-color: #212529;
   --bs-btn-border-color: #212529;
@@ -13,7 +12,6 @@
   --bs-btn-disabled-color: #212529;
   --bs-btn-disabled-bg: transparent;
   --bs-btn-disabled-border-color: #212529;
-  --bs-gradient: none;
 }
 
 [data-bs-theme=dark] .btn-outline-theme {
@@ -30,7 +28,6 @@
   --bs-btn-disabled-color: #f8f9fa;
   --bs-btn-disabled-bg: transparent;
   --bs-btn-disabled-border-color: #f8f9fa;
-  --bs-gradient: none;
 }
 
 
@@ -51,22 +48,21 @@ body {
   max-height: 100%;
   margin: auto;
   box-shadow: 0px 0px 0rem rgb(0, 0, 0);
-  transition: background-color box-shadow 1ms linear;
 }
 
-.conquistas-off{
+.conquistas-off {
   height: calc(100vh - 48px);
   height: calc(100dvh - 48px);
 }
 
-.auturaTabela{
-  height:  calc(100vh - 48px - 35px - 31px - 4px);
+.auturaTabela {
+  height: calc(100vh - 48px - 35px - 31px - 4px);
   height: calc(100svh - 48px - 35px - 31px - 4px);
 }
 
 @media (max-width: 373px) {
-  .auturaTabela{
-    height:  calc(100vh - 48px - 35px - 31px - 31px - 4px);
+  .auturaTabela {
+    height: calc(100vh - 48px - 35px - 31px - 31px - 4px);
     height: calc(100svh - 48px - 35px - 31px - 31px - 4px);
   }
 }
@@ -75,19 +71,45 @@ body {
   display: none;
 }
 
-.navbar{
+.navbar {
   overflow-x: auto;
 }
 
-.nav-link{
-  transition: ease-in 0.4s background-color ;
+.nav-link {
+  transition: ease-in 0.4s background-color;
 }
 
-.nav-link:active{
+.nav-link:active {
   background-color: rgba(127, 127, 127, 0.25);
-  transition: 0s background-color ;
+  transition: 0s background-color;
 }
 
-.backdrop-blur{
+.backdrop-blur {
   backdrop-filter: blur(0.1rem);
+}
+
+.barraRPM {
+  background-color: #000;
+  padding: 0;
+  overflow: hidden;
+  height: 100%;
+}
+
+.barraRPM div {
+  width: 2rem;
+  height: calc(100% / 6);
+}
+
+#ponteiro {
+  display: inline-block;
+  position: relative;
+  top: 100%;
+  transition: 500ms top ease-in-out;
+
+  width: 0;
+  height: 0;
+  border-top: 1rem solid transparent;
+  border-bottom: 1rem solid transparent;
+  border-left: 2rem solid #ff7b0080;
+  transform: scale(2.3, 1) translate(0, -1rem);
 }

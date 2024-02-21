@@ -3,16 +3,9 @@
  */
 
 import paginas from "./paginas.js";
+import sw from "./sw.js";
 import tema from "./utilitarios/tema.js";
 
 tema();
-
-if ("serviceWorker" in navigator){
-  navigator.serviceWorker.register("serviceWorker.js")
-    .then((registro) => {})
-    .catch((err) => {
-      console.error(err);
-    })
-}
-
+sw();
 paginas();

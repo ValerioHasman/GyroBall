@@ -63,15 +63,50 @@ export default class ArmazenamentoLocal {
     return Boolean(window.localStorage.getItem(`inverterPrioridadeGrave`) ?? false);
   }
 
-  set corDinamica(valor) {
-    if (valor) {
-      window.localStorage.setItem(`corDinamica`, `true`);
-    } else {
-      window.localStorage.removeItem(`corDinamica`);
-    }
+  set corNivel5(valor){
+    window.localStorage.setItem('corNivel5', valor);
   }
-  get corDinamica() {
-    return Boolean(window.localStorage.getItem(`corDinamica`) ?? false);
+  get corNivel5(){
+    return window.localStorage.getItem('corNivel5') ?? '#ff00ff';
+  }
+  set corNivel4(valor){
+    window.localStorage.setItem('corNivel4', valor);
+  }
+  get corNivel4(){
+    return window.localStorage.getItem('corNivel4') ?? '#ff0000';
+  }
+  set corNivel3(valor){
+    window.localStorage.setItem('corNivel3', valor);
+  }
+  get corNivel3(){
+    return window.localStorage.getItem('corNivel3') ?? '#ffff00';
+  }
+  set corNivel2(valor){
+    window.localStorage.setItem('corNivel2', valor);
+  }
+  get corNivel2(){
+    return window.localStorage.getItem('corNivel2') ?? '#00ff00';
+  }
+  set corNivel1(valor){
+    window.localStorage.setItem('corNivel1', valor);
+  }
+  get corNivel1(){
+    return window.localStorage.getItem('corNivel1') ?? '#00ffff';
+  }
+  set corNivel0(valor){
+    window.localStorage.setItem('corNivel0', valor);
+  }
+  get corNivel0(){
+    return window.localStorage.getItem('corNivel0') ?? '#0000ff';
+  }
+
+  resetarCores(){
+    window.localStorage.removeItem('corNivel5');
+    window.localStorage.removeItem('corNivel4');
+    window.localStorage.removeItem('corNivel3');
+    window.localStorage.removeItem('corNivel2');
+    window.localStorage.removeItem('corNivel1');
+    window.localStorage.removeItem('corNivel0');
   }
 
   resetar(){
@@ -80,8 +115,8 @@ export default class ArmazenamentoLocal {
     window.localStorage.removeItem('multiplicadorGrave');
     window.localStorage.removeItem('multiplicadorAgudo');
     window.localStorage.removeItem('inverterPrioridadeGrave');
-    window.localStorage.removeItem('corDinamica');
   }
+
 
   #theme(valor) {
     let theme;

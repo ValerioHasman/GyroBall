@@ -30,13 +30,13 @@ function aualizarTabela(conquistas, tabela) {
 
     tabela.row
       .add([
-        `<span class="d-block" style="background-color: ${(gb.rgba)(0.5)}">${gb.rpm}</span>`,
+        `<span class="d-block" style="background-color: ${(gb.corHEXA)(0.5)}">${gb.rpm}</span>`,
         gb.nivel,
         gb.kg,
         gb.torque,
         msDiaMesAno(linhas.datams),
         msHoraMinutos(linhas.datams),
-        `<span class="d-none">${linhas.tempoms}</span>${tempoDecorrido(linhas.tempoms)}`,
+        `<span class="d-none">${`${linhas.tempoms}`.padStart(7,'0')}</span>${tempoDecorrido(linhas.tempoms)}`,
         `<button delete="${linhas.id}" type="button" class="btn btn-sm btn-outline-danger border-0"><i class="bi bi-x-lg"></i></button>`
       ])
       .draw(false);
