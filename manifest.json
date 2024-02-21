@@ -47,9 +47,7 @@
       "icons": [
         {
           "src": "./icones/icone1.png",
-          "type": "image/png",
-          "sizes": "96x96",
-          "purpose": "maskable"
+          "sizes": "96x96"
         }
       ]
     },
@@ -60,9 +58,7 @@
       "icons": [
         {
           "src": "./icones/icone2.png",
-          "type": "image/png",
-          "sizes": "96x96",
-          "purpose": "maskable"
+          "sizes": "96x96"
         }
       ]
     },
@@ -73,9 +69,7 @@
       "icons": [
         {
           "src": "./icones/icone3.png",
-          "type": "image/png",
-          "sizes": "96x96",
-          "purpose": "maskable"
+          "sizes": "96x96"
         }
       ]
     }
