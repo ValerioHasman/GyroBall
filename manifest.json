@@ -46,7 +46,7 @@
       "description": "Pratique todos os dias e melhore cada vez mais.",
       "icons": [
         {
-          "src": "./icones/icone1.png",
+          "src": "./icones/praticar.svg",
           "sizes": "96x96"
         }
       ]
@@ -57,7 +57,7 @@
       "description": "Veja as conquistas e treinos executados.",
       "icons": [
         {
-          "src": "./icones/icone2.png",
+          "src": "./icones/conquistas.svg",
           "sizes": "96x96"
         }
       ]
@@ -68,7 +68,7 @@
       "description": "Modifique os registros de processamento de áudio.",
       "icons": [
         {
-          "src": "./icones/icone3.png",
+          "src": "./icones/configuracao.svg",
           "sizes": "96x96"
         }
       ]
