@@ -5,6 +5,9 @@ import Modais from "../classes/Modais.js";
 import stringEmElemento from "../utilitarios/stringEmElemento.js";
 import tempoDecorrido from "../utilitarios/tempoDecorrido.js";
 import DeduzirRPM from "./praticar/DeduzirRPM.js";
+import MonitorarDesempenho from "./praticar/MonitorarDesempenho.js";
+import UltimoKg from "./praticar/UltimoKg.js";
+import controlarPonteiro from "./praticar/controlarPonteiro.js";
 import exercicioPraticado from "./praticar/exercicioPraticado.js";
 
 const praticar = stringEmElemento(`
@@ -31,7 +34,7 @@ const praticar = stringEmElemento(`
   </div>
   <div class="row p-1">
     <div class="col d-flex">
-      <button type="button" id="controle" class="btn me-3 btn-lg btn-secondary bg-gradient"><i class="bi bi-mic-fill"></i></button>
+      <button type="button" id="controle" class="btn me-3 btn-lg rounded-5 btn-secondary bg-gradient"><i class="bi me-3 bi-mic-fill"></i>Praticar</button>
     </div>
   </div>
   <div class="row border-bottom p-1">
@@ -53,6 +56,14 @@ const praticar = stringEmElemento(`
   <div class="row border-bottom p-1">
     <div id="torque" class="col text-end font-monospace">0.00</div>
     <div class="col">τorque</div>
+  </div>
+  <div class="row border-bottom p-1">
+    <div id="ultimokg" class="col text-end font-monospace">
+      <i class="bi d-none bi-caret-up-fill"></i>
+      <i class="bi d-none bi-caret-down-fill"></i>
+      <span>0.00</span>
+    </div>
+    <div class="col">Último KG</div>
   </div>
 </div>
 `);
@@ -85,62 +96,13 @@ const nivel = praticar.querySelector('#nivel');
 const rpm = praticar.querySelector('#rpm');
 const kg = praticar.querySelector('#kg');
 const torque = praticar.querySelector('#torque');
-const gb = new GyroBall();
-const monitorar = new class {
-  #array = [];
-  #maximoRPM = 0;
-  #intervalo = null;
-  #data = 0;
+const ultimokg = new UltimoKg(praticar.querySelector('#ultimokg'));
 
-  set media(valor) {
-    this.#array.push(valor);
-  }
-  get media() {
-    const average = list => list.reduce((prev, curr) => prev + curr) / list.length;
-    return average(this.#array);
-  }
-  set maxRPM(valor) {
-    if (this.#maximoRPM < valor) {
-      this.#maximoRPM = valor;
-    }
-  }
-  get maxRPM() {
-    return this.#maximoRPM;
-  }
-  get data() {
-    return this.#data;
-  }
-  get tempo() {
-    return this.#data == 0 ? 0 : (Date.now() - this.#data);
-  }
-  get iniciar() {
-    return (funcao) => {
-      if (this.#maximoRPM != 0) {
-        this.finalizar();
-      }
-      const func = ()=>{
-        const media = this.media;
-        this.#array = [];
-        this.maxRPM = media;
-        funcao(media);
-      }
-
-      this.#intervalo = setInterval(func, 500);
-      this.#data = Date.now();
-    }
-  }
-  get finalizar() {
-    return () => {
-      this.#maximoRPM = 0;
-      this.#data = 0;
-      clearInterval(this.#intervalo);
-      this.#array = [];
-    }
-  }
-}
-const ouvinte = new DeduzirRPM((i)=>{ monitorar.media = i });
+const monitorar = new MonitorarDesempenho();
+const ouvinte = new DeduzirRPM((i) => { monitorar.media = i });
 
 function inserirDadosNosGraficos(irpms) {
+  const gb = new GyroBall();
   gb.rpm = irpms;
   tempo.innerText = tempoDecorrido(monitorar.tempo);
   nivel.innerText = gb.nivel;
@@ -150,22 +112,16 @@ function inserirDadosNosGraficos(irpms) {
   ball.style.backgroundColor = gb.corHEX;
   ball.style.boxShadow = `0 0 ${gb.procentagem * 2}rem ${gb.procentagem * 0.5}rem ${gb.corHEX}`;
   ponteiro.style.top = controlarPonteiro(gb.rpm);
-}
-
-function controlarPonteiro(rpm) {
-  function limitar(valor) {
-    if (valor > 12000) {
-      return limitar(valor - 12000);
-    }
-    return valor;
+  if (ultimokg.numQuilo < Number.parseFloat(gb.kg)) {
+    ultimokg.down();
+  } else {
+    ultimokg.up();
   }
-  const porcent = limitar(rpm) / 12000 * 100;
-  return `${100 - porcent}%`;
 }
 
 function salvaProgresso() {
   const resultado = { rpm: monitorar.maxRPM, datams: monitorar.data, tempoms: monitorar.tempo };
-  monitorar.finalizar();
+  monitorar.finalizar(desligar);
   base.gravarDado('conquistas', resultado)
     .then((res) => {
       const event = new Event("salvaProgresso");
@@ -185,7 +141,7 @@ function salvaProgresso() {
 
 function iniciar() {
   ouvinte.startAudioCapture();
-  controle.innerHTML = `<i class="bi bi-mic-mute-fill"></i>`;
+  controle.innerHTML = `<i class="bi me-3 bi-mic-mute-fill"></i>Parar`;
   latenciaDoControle();
   controle.removeEventListener('click', iniciar);
   controle.addEventListener('click', parar);
@@ -194,23 +150,25 @@ function iniciar() {
 
 function parar() {
   ouvinte.stopAudioCapture();
-  controle.innerHTML = `<i class="bi bi-mic-fill"></i>`
+  controle.innerHTML = `<i class="bi me-3 bi-mic-fill"></i>Praticar`
   latenciaDoControle();
   controle.removeEventListener('click', parar);
   controle.addEventListener('click', iniciar);
   salvaProgresso();
-  setTimeout(() => {
-    inserirDadosNosGraficos(0);
-    ball.style.backgroundColor = 'rgb(0,0,0)';
-    ball.style.boxShadow = 'unset';
-  }, 150);
+}
+
+function desligar(){
+  inserirDadosNosGraficos(0);
+  ultimokg.reset();
+  ball.style.backgroundColor = 'rgb(0,0,0)';
+  ball.style.boxShadow = 'unset';
 }
 
 function latenciaDoControle() {
   controle.disabled = true;
   setTimeout(() => {
     controle.disabled = false;
-  }, 250);
+  }, 1000);
 }
 
 controle.addEventListener('click', iniciar);

@@ -1,4 +1,10 @@
-const CACHE_NAME = 'gb-v5';
+const CACHE_NAME = 'gb-v6';
+
+self.addEventListener('install', function (event) {
+  event.waitUntil(
+    self.skipWaiting()
+  );
+});
 
 self.addEventListener('activate', function (event) {
   event.waitUntil(
@@ -6,14 +12,22 @@ self.addEventListener('activate', function (event) {
       return Promise.all(
         cacheNames.map(function (cacheName) {
           if (cacheName !== CACHE_NAME) {
-            console.log("algo foi apagado");
             return caches.delete(cacheName);
           }
         })
       );
     })
-  );
+  )
+  exe();
 });
+
+function exe() {
+  self.clients.matchAll().then(clients => {
+    clients.forEach(client => {
+      client.postMessage({ action: 'reload' });
+    });
+  });
+}
 
 self.addEventListener('fetch', function (event) {
   event.respondWith(
