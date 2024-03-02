@@ -1,4 +1,4 @@
-const CACHE_NAME = 'gb-v6';
+const CACHE_NAME = 'gb-v7';
 
 self.addEventListener('install', function (event) {
   event.waitUntil(
@@ -18,10 +18,10 @@ self.addEventListener('activate', function (event) {
       );
     })
   )
-  exe();
+  recaregarComCache();
 });
 
-function exe() {
+function recaregarComCache() {
   self.clients.matchAll().then(clients => {
     clients.forEach(client => {
       client.postMessage({ action: 'reload' });

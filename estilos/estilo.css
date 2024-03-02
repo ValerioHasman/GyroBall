@@ -92,8 +92,8 @@ body {
 }
 
 .nav-link:active .bi-gear::before{
-  transform: rotate(-360deg);
-  transition: transform 0s;
+  transform: rotate(-720deg);
+  transition: transform 1s cubic-bezier(0, 1, 0, 1);
 }
 
 .backdrop-blur {
