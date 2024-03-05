@@ -84,9 +84,7 @@ export default function (resultado, primeiraMao) {
 }
 
 function svgGB(elem){
-  const urlGB = window.location.origin + window.location.pathname + 'icones/praticar.svg';
-
-  fetch(urlGB)
+  fetch('./icones/praticar.svg')
   .then(resp => resp.text())
   .then((svgGB)=>{
     elem.innerHTML += svgGB;
