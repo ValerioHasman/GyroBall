@@ -138,3 +138,7 @@ body {
     height: calc(100% / 6);
   }
 }
+
+.modal {
+  backdrop-filter: blur(0.5rem);
+}

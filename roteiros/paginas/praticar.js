@@ -9,6 +9,7 @@ import MonitorarDesempenho from "./praticar/MonitorarDesempenho.js";
 import UltimoKg from "./praticar/UltimoKg.js";
 import controlarPonteiro from "./praticar/controlarPonteiro.js";
 import exercicioPraticado from "./praticar/exercicioPraticado.js";
+import exercicioPraticado2Braco from "./praticar/exercicioPraticado2Braco.js";
 
 const praticar = stringEmElemento(`
 <div class="container fs-5  ">
@@ -32,32 +33,37 @@ const praticar = stringEmElemento(`
       </div>
     </div>
   </div>
-  <div class="row p-1">
+  <div class="row py-1">
     <div class="col d-flex">
       <button type="button" id="controle" class="btn me-3 btn-lg rounded-5 btn-secondary bg-gradient"><i class="bi me-3 bi-mic-fill"></i>Praticar</button>
     </div>
   </div>
-  <div class="row border-bottom p-1">
+  <div id="barraDeProgresso" class="py-1 d-none">
+    <div class="progress" role="progressbar" aria-label="Example 1px high" aria-valuemin="0" aria-valuemax="100" style="height: 1px">
+      <div class="progress-bar bg-danger" style="width: 0%;"></div>
+    </div>
+  </div>
+  <div class="row border-bottom py-1">
     <div id="tempo" class="col text-end font-monospace">00:00</div>
     <div class="col">Tempo</div>
   </div>
-  <div class="row border-bottom p-1">
+  <div class="row border-bottom py-1">
     <div id="nivel" class="col text-end font-monospace">0</div>
     <div class="col">Nível</div>
   </div>
-  <div class="row border-bottom p-1">
+  <div class="row border-bottom py-1">
     <div id="rpm" class="col text-end font-monospace">0</div>
     <div class="col">RPM</div>
   </div>
-  <div class="row border-bottom p-1">
+  <div class="row border-bottom py-1">
     <div id="kg" class="col text-end font-monospace">0.00</div>
     <div class="col">KG</div>
   </div>
-  <div class="row border-bottom p-1">
+  <div class="row border-bottom py-1">
     <div id="torque" class="col text-end font-monospace">0.00</div>
     <div class="col">τorque</div>
   </div>
-  <div class="row border-bottom p-1">
+  <div class="row border-bottom py-1">
     <div id="ultimokg" class="col text-end font-monospace">
       <i class="bi d-none bi-caret-up-fill"></i>
       <i class="bi d-none bi-caret-down-fill"></i>
@@ -119,39 +125,43 @@ function inserirDadosNosGraficos(irpms) {
   }
 }
 
-function salvaProgresso() {
+function salvaProgresso(segundoBraco = false, primeiroBraco) {
   const resultado = { rpm: monitorar.maxRPM, datams: monitorar.data, tempoms: monitorar.tempo };
   monitorar.finalizar(desligar);
   base.gravarDado('conquistas', resultado)
-    .then((res) => {
+    .then(({target: {result}}) => {
       const event = new Event("salvaProgresso");
-      resultado.id = res.target.result;
+      resultado.id = result;
       event.data = resultado;
       document.dispatchEvent(event);
     });
 
-  void new Modais(
-    'Parabéns, exercício praticado com sucesso',
-    exercicioPraticado(resultado)
-    , () => {
-      controle.focus();
-    },
-    undefined).exibe();
+  if(segundoBraco){
+    void new Modais(
+      'Parabéns, exercício praticado com sucesso',
+      exercicioPraticado2Braco(resultado, primeiroBraco)
+      , () => {
+        controle.focus();
+      }).exibe();
+  } else {
+    void new Modais(
+      'Parabéns, exercício praticado com sucesso',
+      exercicioPraticado(resultado)
+      , () => {
+        controle.focus();
+      }).exibe();
+  }
 }
 
 function iniciar() {
-  ouvinte.startAudioCapture();
-  controle.innerHTML = `<i class="bi me-3 bi-mic-mute-fill"></i>Parar`;
-  latenciaDoControle();
+  botaoIniciar();
   controle.removeEventListener('click', iniciar);
   controle.addEventListener('click', parar);
   monitorar.iniciar(inserirDadosNosGraficos);
 }
 
 function parar() {
-  ouvinte.stopAudioCapture();
-  controle.innerHTML = `<i class="bi me-3 bi-mic-fill"></i>Praticar`
-  latenciaDoControle();
+  botaoParar();
   controle.removeEventListener('click', parar);
   controle.addEventListener('click', iniciar);
   salvaProgresso();
@@ -164,12 +174,59 @@ function desligar(){
   ball.style.boxShadow = 'unset';
 }
 
-function latenciaDoControle() {
+function latenciaDoControle(tempo = 1000) {
   controle.disabled = true;
   setTimeout(() => {
     controle.disabled = false;
-  }, 1000);
+  }, tempo);
 }
+
+document.addEventListener('iniciarSegundoBraco', trocarDeBraco);
+
+function trocarDeBraco({data}){
+  const divDeProgresso = praticar.querySelector('#barraDeProgresso');
+  const barraDeProgresso = praticar.querySelector('#barraDeProgresso .progress-bar');
+  divDeProgresso.classList.remove('d-none');
+  barraDeProgresso.style.width = 0;
+  barraDeProgresso.style.transition = `all linear ${data.tempoms}ms`;
+
+  controle.innerHTML = `<i class="bi me-3 bi-mic-fill"></i>Continuar`;
+  controle.removeEventListener('click', iniciar);
+  controle.addEventListener('click', iniciarSegundoBraco);
+  let tempoLimite;
+  
+  function iniciarSegundoBraco() {
+    botaoIniciar();
+    tempoLimite = setTimeout(pararSegundoBraco, data.tempoms);
+    barraDeProgresso.style.width = '100%';
+    
+    controle.removeEventListener('click', iniciarSegundoBraco);
+    controle.addEventListener('click', pararSegundoBraco);
+    monitorar.iniciar(inserirDadosNosGraficos);
+  }
+  function pararSegundoBraco() {
+    clearTimeout(tempoLimite);
+    divDeProgresso.classList.add('d-none');
+    barraDeProgresso.style.width = null;
+    barraDeProgresso.style.transition = null;
+    botaoParar();
+    controle.removeEventListener('click', pararSegundoBraco);
+    controle.addEventListener('click', iniciar);
+    salvaProgresso(true, data);
+  }
+}
+
+function botaoIniciar(){
+  ouvinte.startAudioCapture();
+  controle.innerHTML = `<i class="bi me-3 bi-mic-mute-fill"></i>Parar`;
+  latenciaDoControle();
+}
+function botaoParar(){
+  ouvinte.stopAudioCapture();
+  controle.innerHTML = `<i class="bi me-3 bi-mic-fill"></i>Praticar`;
+  latenciaDoControle();
+}
+
 
 controle.addEventListener('click', iniciar);
 
