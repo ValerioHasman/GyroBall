@@ -1,9 +1,10 @@
 import ArmazenamentoLocal from "../../classes/ArmazenamentoLocal.js";
 
 export default class DeduzirRPM {
-  #audioContext;
-  #mediaStreamSource;
-  #analyser;
+  /** @type {AudioContext} */ #audioContext;
+  /** @type {MediaStreamAudioSourceNode} */ #mediaStreamSource;
+  /** @type {AnalyserNode} */ #analyser;
+  /** @type {MediaStream} */ #stream;
   #funcaoProcesso;
   #local = new ArmazenamentoLocal();
 
@@ -27,6 +28,9 @@ export default class DeduzirRPM {
     // Solicita permissão para acessar o microfone
     navigator.mediaDevices.getUserMedia({ audio: true })
       .then((stream) => {
+
+        this.#stream = stream;
+
         // Cria um nó de origem para conectar ao fluxo do microfone
         this.#mediaStreamSource = this.#audioContext.createMediaStreamSource(stream);
 
@@ -46,6 +50,19 @@ export default class DeduzirRPM {
   }
 
   stopAudioCapture() {
+    if (this.#mediaStreamSource) {
+      this.#mediaStreamSource.disconnect();
+      this.#mediaStreamSource = null;
+    }
+    if (this.#analyser) {
+      this.#analyser.disconnect();
+      this.#analyser = null;
+    }
+    if (this.#stream){
+      this.#stream.getTracks().forEach(function(track) {
+        track.stop();
+      });
+    }
     if (this.#audioContext) {
       this.#audioContext.close();
       this.#audioContext = null;
