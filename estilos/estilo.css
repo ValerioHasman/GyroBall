@@ -30,23 +30,25 @@
   --bs-btn-disabled-border-color: #f8f9fa;
 }
 
-
 body {
   overscroll-behavior-y: contain;
 }
 
 .gyroball {
   height: 40vh;
+
 }
 
 #ball {
-  scale: 0.9;
   background-color: rgb(0, 0, 0);
   min-height: 12vh;
   aspect-ratio: 1/1;
   border-radius: 50%;
-  max-width: 100%;
-  max-height: 100%;
+  max-width: calc(100% - 4rem);
+  max-height: calc(100% - 4rem);
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
   margin: auto;
   box-shadow: 0px 0px 0rem rgb(0, 0, 0);
   transition: all 100ms linear;
@@ -86,12 +88,12 @@ body {
   transition: 0s background-color;
 }
 
-.nav-link .bi-gear::before{
+.nav-link .bi-gear::before {
   transform: rotate(0deg);
   transition: transform 1s ease-out;
 }
 
-.nav-link:active .bi-gear::before{
+.nav-link:active .bi-gear::before {
   transform: rotate(-720deg);
   transition: transform 1s cubic-bezier(0, 1, 0, 1);
 }
@@ -133,6 +135,7 @@ body {
     border-left: 1rem solid #ff7b0080;
     transform: scale(2.3, 1) translate(0, -1rem);
   }
+
   .barraRPM div {
     width: 1rem;
     height: calc(100% / 6);
