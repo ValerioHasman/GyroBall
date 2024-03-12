@@ -7,11 +7,11 @@ function gerarTabela(conquistas) {
     "columnDefs": [
       {
         "orderable": false,
-        "targets": 7
+        "targets": 8
       }
     ],
     "order": [
-      [4, 'desc']
+      [5, 'desc']
     ],
     "language": {
       "sProcessing": "Processando...",

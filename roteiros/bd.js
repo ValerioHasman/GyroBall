@@ -8,7 +8,8 @@ const config = new Configuracao({
     [
       { nome: 'rpm' },
       { nome: 'datams' },
-      { nome: 'tempoms' }
+      { nome: 'tempoms' },
+      { nome: 'kgAcumulado' }
     ]
   }]
 });

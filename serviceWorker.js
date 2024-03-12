@@ -1,4 +1,4 @@
-const CACHE_NAME = 'gb-v11';
+const CACHE_NAME = 'gb-v12';
 
 self.addEventListener('install', function (event) {
   event.waitUntil(
@@ -11,9 +11,7 @@ self.addEventListener('activate', function (event) {
     caches.keys().then(function (cacheNames) {
       return Promise.all(
         cacheNames.map(function (cacheName) {
-          if (cacheName !== CACHE_NAME) {
-            return caches.delete(cacheName);
-          }
+          return caches.delete(cacheName);
         })
       );
     })

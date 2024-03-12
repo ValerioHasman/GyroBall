@@ -43,6 +43,10 @@ export default function (resultado) {
     <div class="col text-end font-monospace">${gb.torque}</div>
     <div class="col">τorque</div>
   </div>
+  <div class="row border-bottom py-1">
+    <div class="col text-end font-monospace">${resultado.kgAcumulado.toFixed(2)}</div>
+    <div class="col">Acúmulo KG</div>
+  </div>
   <p class="mt-5">O que deseja fazer?</p>
   <div class="d-flex gap-2">
     <button type="button" data-bs-dismiss="modal" class="btn btn-secondary">Ver conquistas<i class="bi bi-table ms-2"></i></button>

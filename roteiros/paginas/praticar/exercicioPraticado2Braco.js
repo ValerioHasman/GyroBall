@@ -40,6 +40,10 @@ export default function (resultado, primeiraMao) {
         <div class="col text-end font-monospace">${gb1.torque}</div>
         <div class="col">τorque</div>
       </div>
+      <div class="row border-bottom py-1">
+        <div class="col text-end font-monospace">${primeiraMao.kgAcumulado.toFixed(2)}</div>
+        <div class="col">Acúmulo KG</div>
+      </div>
 
     </div>
     <div class="col">
@@ -61,7 +65,10 @@ export default function (resultado, primeiraMao) {
         <div class="col text-end font-monospace">${gb2.torque}</div>
         <div class="col">τorque</div>
       </div>
-
+      <div class="row border-bottom py-1">
+        <div class="col text-end font-monospace">${resultado.kgAcumulado.toFixed(2)}</div>
+        <div class="col">Acúmulo KG</div>
+      </div>
 
     </div>
   </div>

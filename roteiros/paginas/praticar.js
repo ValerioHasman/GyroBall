@@ -64,6 +64,10 @@ const praticar = stringEmElemento(`
     <div class="col">τorque</div>
   </div>
   <div class="row border-bottom py-1">
+    <div id="acumulokg" class="col text-end font-monospace">0.00</div>
+    <div class="col">Acúmulo KG</div>
+  </div>
+  <div class="row border-bottom py-1">
     <div id="ultimokg" class="col text-end font-monospace">
       <i class="bi d-none bi-caret-up-fill"></i>
       <i class="bi d-none bi-caret-down-fill"></i>
@@ -102,6 +106,7 @@ const nivel = praticar.querySelector('#nivel');
 const rpm = praticar.querySelector('#rpm');
 const kg = praticar.querySelector('#kg');
 const torque = praticar.querySelector('#torque');
+const acumulokg = praticar.querySelector('#acumulokg');
 const ultimokg = new UltimoKg(praticar.querySelector('#ultimokg'));
 
 const monitorar = new MonitorarDesempenho();
@@ -114,6 +119,8 @@ function inserirDadosNosGraficos(irpms) {
   nivel.innerText = gb.nivel;
   rpm.innerText = gb.rpm;
   kg.innerText = gb.kg;
+  monitorar.somaDosKG = gb.kg;
+  acumulokg.innerText = monitorar.somaDosKG.toFixed(2);
   torque.innerText = gb.torque;
   ball.style.backgroundColor = gb.corHEX;
   ball.style.boxShadow = `0 0 ${gb.procentagem * 2}rem ${gb.procentagem * 0.5}rem ${gb.corHEX}`;
@@ -126,7 +133,7 @@ function inserirDadosNosGraficos(irpms) {
 }
 
 function salvaProgresso(segundoBraco = false, primeiroBraco) {
-  const resultado = { rpm: monitorar.maxRPM, datams: monitorar.data, tempoms: monitorar.tempo };
+  const resultado = { rpm: monitorar.maxRPM, datams: monitorar.data, tempoms: monitorar.tempo, kgAcumulado: monitorar.somaDosKG};
   monitorar.finalizar(desligar);
   base.gravarDado('conquistas', resultado)
     .then(({target: {result}}) => {

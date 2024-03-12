@@ -11,6 +11,7 @@ const conquistas = stringEmElemento(`
         <th scope="col">Nível</th>
         <th scope="col">KG</th>
         <th scope="col">τorque</th>
+        <th scope="col">Acúmulo&nbsp;KG</th>
         <th scope="col">data</th>
         <th scope="col">hora</th>
         <th scope="col">tempo</th>

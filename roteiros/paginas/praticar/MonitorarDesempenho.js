@@ -3,7 +3,14 @@ export default class MonitorarDesempenho {
   #maximoRPM = 0;
   #intervalo = null;
   #data = 0;
+  #somaDosKG = 0;
 
+  set somaDosKG(valor){
+    this.#somaDosKG += Number.parseFloat(valor);
+  }
+  get somaDosKG(){
+    return this.#somaDosKG;
+  }
   set media(valor) {
     this.#array.push(valor);
   }
@@ -44,6 +51,7 @@ export default class MonitorarDesempenho {
   get finalizar() {
     return (desligar = ()=>{}) => {
       this.#maximoRPM = 0;
+      this.#somaDosKG = 0;
       this.#data = 0;
       clearInterval(this.#intervalo);
       this.#array = [];

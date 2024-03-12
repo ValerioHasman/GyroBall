@@ -16,7 +16,7 @@ export class BDIndexado {
     }
     this.#conf = conf;
 
-    this.#solicitacao = window.indexedDB.open(this.#conf.baseDeDados, this.#conf.vesao);
+    this.#solicitacao = window.indexedDB.open(this.#conf.baseDeDados, this.#conf.versao);
 
     this.#solicitacao.onsuccess = (solicitacao) => {
       this.#db = solicitacao.target.result;
@@ -103,19 +103,19 @@ export class BDIndexado {
 }
 
 export class Configuracao {
-  #vesao = 1;
+  #versao = 1;
   #baseDeDados = 'BaseDeDados';
   /** @type {{ nome: string; opcoes: { keyPath: string; autoIncrement: boolean; }; colunas: { nome: string; unique: boolean; }[]; }[];} */
   #tabelas = [];
 
-  /** @param {{ vesao: number; baseDeDados: string; tabelas: { nome: string; opcoes: { keyPath: string; autoIncrement: boolean; }; colunas: { nome: string; unique: boolean; }[]; }[]; }} conf */
+  /** @param {{ versao: number; baseDeDados: string; tabelas: { nome: string; opcoes: { keyPath: string; autoIncrement: boolean; }; colunas: { nome: string; unique: boolean; }[]; }[]; }} conf */
   constructor(conf) {
-    this.vesao = conf.vesao ?? this.#vesao;
+    this.versao = conf.versao ?? this.#versao;
     this.baseDeDados = conf.baseDeDados ?? this.#baseDeDados;
     this.tabelas = conf.tabelas;
   }
 
-  set vesao(valor) { this.#vesao = Number.parseInt(valor); }
+  set versao(valor) { this.#versao = Number.parseInt(valor); }
   set baseDeDados(valor) { this.#baseDeDados = String(valor); }
   set tabelas(valor) {
     const tbls = [];
@@ -141,7 +141,7 @@ export class Configuracao {
 
     this.#tabelas = tbls;
   }
-  get vesao() { return this.#vesao; }
+  get versao() { return this.#versao; }
   get baseDeDados() { return this.#baseDeDados; }
   get tabelas() { return this.#tabelas; }
 }

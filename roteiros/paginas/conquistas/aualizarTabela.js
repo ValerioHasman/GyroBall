@@ -24,7 +24,7 @@ function aualizarTabela(conquistas, tabela) {
   function novaConquista(linhas) {
     tbody.classList.add('d-none');
     tabela.page.len(-1).draw();
-  
+
     const gb = new GyroBall();
     gb.rpm = linhas.rpm;
 
@@ -32,11 +32,12 @@ function aualizarTabela(conquistas, tabela) {
       .add([
         `<span class="d-block" style="background-color: ${(gb.corHEXA)(0.5)}">${gb.rpm}</span>`,
         gb.nivel,
-        gb.kg,
-        gb.torque,
-        msDiaMesAno(linhas.datams),
-        msHoraMinutos(linhas.datams),
-        `<span class="d-none">${`${linhas.tempoms}`.padStart(7,'0')}</span>${tempoDecorrido(linhas.tempoms)}`,
+        gb.kg.replace('.', ','),
+        gb.torque.replace('.', ','),
+        seNulo(acumulado, linhas.kgAcumulado),
+        seNulo(msDiaMesAno, linhas.datams),
+        seNulo(msHoraMinutos, linhas.datams),
+        seNulo(verTempoDecorrido, linhas.tempoms),
         `<button delete="${linhas.id}" type="button" class="btn btn-sm btn-outline-danger border-0"><i class="bi bi-x-lg"></i></button>`
       ])
       .draw(false);
@@ -64,13 +65,27 @@ function aualizarTabela(conquistas, tabela) {
     return `<span class="d-none">${milissegundos}</span>${dia}/${mes}/${ano}`;
   }
 
-
   function msHoraMinutos(milissegundos) {
     const data = new Date(milissegundos);
     const hora = data.getHours().toString().padStart(2, '0');
     const minutos = data.getMinutes().toString().padStart(2, '0');
 
     return `<span class="d-none">${milissegundos}</span>${hora}:${minutos}`;
+  }
+
+  function verTempoDecorrido(tempoms){
+    return `<span class="d-none">${`${tempoms}`.padStart(7,'0')}</span>${tempoDecorrido(tempoms)}`
+  }
+
+  function acumulado(kgAcumulado){
+    return kgAcumulado.toFixed(2).replace('.', ',');
+  }
+
+  function seNulo(funcao, parametro){
+    if(parametro === null || parametro === undefined){
+      return `<span class="fst-italic text-secondary" >-</span>`;
+    }
+    return funcao(parametro);
   }
 
 }
