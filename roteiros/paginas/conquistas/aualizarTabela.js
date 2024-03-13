@@ -83,7 +83,7 @@ function aualizarTabela(conquistas, tabela) {
 
   function seNulo(funcao, parametro){
     if(parametro === null || parametro === undefined){
-      return `<span class="fst-italic text-secondary" >-</span>`;
+      return `<span class="fst-italic user-select-none text-secondary invisible nulo" >-</span>`;
     }
     return funcao(parametro);
   }

@@ -163,3 +163,8 @@ body {
 .modal {
   backdrop-filter: blur(0.5rem);
 }
+
+.nulo::after {
+  content: 'nulo';
+  visibility: visible !important;
+}
