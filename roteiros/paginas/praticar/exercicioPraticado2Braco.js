@@ -96,8 +96,8 @@ function svgGB(elem){
   .then((svgGB)=>{
     elem.innerHTML += svgGB;
     const svg = elem.querySelector('svg');
-    svg.style.width = 16;
-    svg.style.height = 16;
+    svg.setAttribute('width', 16);
+    svg.setAttribute('height', 16);
     svg.classList.add('ms-1');
   });
 }
