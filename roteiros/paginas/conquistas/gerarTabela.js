@@ -1,13 +1,28 @@
+import stringEmElemento from "../../utilitarios/stringEmElemento.js";
+import { nulo } from "./aualizarTabela.js";
+
 /** @param {Element} conquistas  */
 function gerarTabela(conquistas) {
 
   const table = conquistas.querySelector('table');
+
+  DataTable.ext.type.order['ordenando-asc'] = function (segundo, primeiro) {
+    return enviarParaOrden(segundo, primeiro, 'asc');
+  };
+
+  DataTable.ext.type.order['ordenando-desc'] = function (segundo, primeiro) {
+    return enviarParaOrden(segundo, primeiro, 'desc');
+  };
 
   const tabela = new DataTable(table, {
     "columnDefs": [
       {
         "orderable": false,
         "targets": 8
+      },
+      {
+        "type": 'ordenando',
+        "targets": '_all',
       }
     ],
     "order": [
@@ -60,5 +75,38 @@ function gerarTabela(conquistas) {
 
   return tabela;
 }
+
+/** @returns {string|number} */
+function preferirNumero(valor) {
+  if (valor == nulo) {
+    return nulo;
+  }
+  const elemento = stringEmElemento(valor, true);
+
+  const valorReal = ((elemento) => {
+    const span = elemento.querySelector('.d-none')
+    if (span) {
+      return span.textContent;
+    }
+    return elemento.textContent;
+  })(elemento).replace(',', '.');
+
+  const valorRealNum = Number.parseFloat(valorReal);
+  return valorRealNum == valorReal ? valorRealNum : valorReal;
+}
+
+/** 
+ * @param {string|number|boolean} primeiro - O que está a cima na lista
+ * @param {string|number|boolean} segundo - O que está a baixo na lista
+ * @param {('desc' | 'asc')} tipo - Tipo de orden decrescente ou acendente respectivamente
+  */
+function enviarParaOrden(segundo, primeiro, tipo) {
+  segundo = preferirNumero(segundo);
+  primeiro = preferirNumero(primeiro);
+  if (primeiro == nulo && segundo !== nulo) { return -1; }
+  if (segundo == nulo && primeiro !== nulo) { return 1; }
+  return segundo < primeiro ? -1 : segundo > primeiro ? tipo === 'asc' ? 1 : -1 : 0;
+}
+
 
 export default gerarTabela;

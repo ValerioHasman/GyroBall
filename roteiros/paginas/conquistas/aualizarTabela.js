@@ -2,25 +2,27 @@ import base from "../../bd.js";
 import GyroBall from "../../classes/GyroBall.js";
 import tempoDecorrido from "../../utilitarios/tempoDecorrido.js";
 
+export const nulo = `<span class="fst-italic user-select-none text-secondary invisible nulo" >-</span>`;
+
 function aualizarTabela(conquistas, tabela) {
 
   const table = conquistas.querySelector('table');
   const tbody = conquistas.querySelector('tbody');
 
-  document.addEventListener("salvaProgresso", (e)=>{
+  document.addEventListener("salvaProgresso", (e) => {
     novaConquista(e.data);
   });
 
   reescreveTabela();
-  function reescreveTabela(){
+  function reescreveTabela() {
     base.pegarTodos('conquistas')
-    .then((res) => {
-      res.target.result.forEach(linhas => {
-        novaConquista(linhas);
+      .then((res) => {
+        res.target.result.forEach(linhas => {
+          novaConquista(linhas);
+        });
       });
-    });
   }
-  
+
   function novaConquista(linhas) {
     tbody.classList.add('d-none');
     tabela.page.len(-1).draw();
@@ -73,21 +75,21 @@ function aualizarTabela(conquistas, tabela) {
     return `<span class="d-none">${milissegundos}</span>${hora}:${minutos}`;
   }
 
-  function verTempoDecorrido(tempoms){
-    return `<span class="d-none">${`${tempoms}`.padStart(7,'0')}</span>${tempoDecorrido(tempoms)}`
+  function verTempoDecorrido(tempoms) {
+    return `<span class="d-none">${`${tempoms}`.padStart(7, '0')}</span>${tempoDecorrido(tempoms)}`
   }
 
-  function acumulado(kgAcumulado){
+  function acumulado(kgAcumulado) {
     return kgAcumulado.toFixed(2).replace('.', ',');
   }
 
-  function seNulo(funcao, parametro){
-    if(parametro === null || parametro === undefined){
-      return `<span class="fst-italic user-select-none text-secondary invisible nulo" >-</span>`;
-    }
-    return funcao(parametro);
-  }
+}
 
+function seNulo(funcao, parametro) {
+  if (parametro === null || parametro === undefined) {
+    return nulo;
+  }
+  return funcao(parametro);
 }
 
 export default aualizarTabela;
