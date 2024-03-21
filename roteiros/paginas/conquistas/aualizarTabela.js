@@ -32,7 +32,7 @@ function aualizarTabela(conquistas, tabela) {
 
     tabela.row
       .add([
-        `<span class="d-block" style="background-color: ${(gb.corHEXA)(0.5)}">${gb.rpm}</span>`,
+        `<span class="td-nivel${gb.nivel}">${gb.rpm}</span>`,
         gb.nivel,
         gb.kg.replace('.', ','),
         gb.torque.replace('.', ','),
@@ -47,7 +47,6 @@ function aualizarTabela(conquistas, tabela) {
     const botao = table.querySelector(`button[delete="${linhas.id}"]`);
 
     botao.onclick = () => {
-      console.info(`Item ${linhas.id} deletado`);
       base.apagarDado('conquistas', linhas.id);
       tabela.row(botao.parentNode.parentNode).remove();
       tabela.page(tabela.page()).draw('page');

@@ -1,5 +1,4 @@
 import base from "../bd.js";
-import ArmazenamentoLocal from "../classes/ArmazenamentoLocal.js";
 import GyroBall from "../classes/GyroBall.js";
 import Modais from "../classes/Modais.js";
 import stringEmElemento from "../utilitarios/stringEmElemento.js";
@@ -24,12 +23,12 @@ const praticar = stringEmElemento(`
     </div>
     <div class="col-auto ps-0">
       <div class="barraRPM rounded-5 border">
-        <div id="barnivel5" style="background-color: #ff00ff;"></div>
-        <div id="barnivel4" style="background-color: #ff0000;"></div>
-        <div id="barnivel3" style="background-color: #ffff00;"></div>
-        <div id="barnivel2" style="background-color: #00ff00;"></div>
-        <div id="barnivel1" style="background-color: #00ffff;"></div>
-        <div id="barnivel0" style="background-color: #0000ff;"></div>
+        <div class="nivel5"></div>
+        <div class="nivel4"></div>
+        <div class="nivel3"></div>
+        <div class="nivel2"></div>
+        <div class="nivel1"></div>
+        <div class="nivel0"></div>
       </div>
     </div>
   </div>
@@ -77,27 +76,6 @@ const praticar = stringEmElemento(`
   </div>
 </div>
 `);
-
-const ponteiro = praticar.querySelector('#ponteiro');
-const barnivel5 = praticar.querySelector('#barnivel5');
-const barnivel4 = praticar.querySelector('#barnivel4');
-const barnivel3 = praticar.querySelector('#barnivel3');
-const barnivel2 = praticar.querySelector('#barnivel2');
-const barnivel1 = praticar.querySelector('#barnivel1');
-const barnivel0 = praticar.querySelector('#barnivel0');
-
-definirCores();
-window.document.addEventListener('trocarDeCores', definirCores);
-function definirCores() {
-  const local = new ArmazenamentoLocal();
-
-  barnivel5.style.backgroundColor = local.corNivel5;
-  barnivel4.style.backgroundColor = local.corNivel4;
-  barnivel3.style.backgroundColor = local.corNivel3;
-  barnivel2.style.backgroundColor = local.corNivel2;
-  barnivel1.style.backgroundColor = local.corNivel1;
-  barnivel0.style.backgroundColor = local.corNivel0;
-}
 
 const controle = praticar.querySelector('#controle');
 const ball = praticar.querySelector('#ball');

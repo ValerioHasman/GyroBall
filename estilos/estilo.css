@@ -1,3 +1,50 @@
+:root {
+  --nivel0: #0000ff; --tdnivel0: #0000ff7F;
+  --nivel1: #00ffff; --tdnivel1: #00ffff7F;
+  --nivel2: #00ff00; --tdnivel2: #00ff007F;
+  --nivel3: #ffff00; --tdnivel3: #ffff007F;
+  --nivel4: #ff0000; --tdnivel4: #ff00007F;
+  --nivel5: #ff00ff; --tdnivel5: #ff00ff7F;
+}
+
+.nivel0 {
+  background-color: var(--nivel0);
+}
+.nivel1 {
+  background-color: var(--nivel1);
+}
+.nivel2 {
+  background-color: var(--nivel2);
+}
+.nivel3 {
+  background-color: var(--nivel3);
+}
+.nivel4 {
+  background-color: var(--nivel4);
+}
+.nivel5 {
+  background-color: var(--nivel5);
+}
+
+td:has(.td-nivel0){
+  background-color: var(--tdnivel0);
+}
+td:has(.td-nivel1){
+  background-color: var(--tdnivel1);
+}
+td:has(.td-nivel2){
+  background-color: var(--tdnivel2);
+}
+td:has(.td-nivel3){
+  background-color: var(--tdnivel3);
+}
+td:has(.td-nivel4){
+  background-color: var(--tdnivel4);
+}
+td:has(.td-nivel5){
+  background-color: var(--tdnivel5);
+}
+
 [data-bs-theme=light] .btn-outline-theme {
   --bs-btn-color: #212529;
   --bs-btn-border-color: #212529;

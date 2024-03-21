@@ -32,6 +32,14 @@ export default class GyroBall {
   get nivel() {
     return Number.parseInt(this.#rpm / 2000);
   }
+  /** @returns {(0|1|2|3|4|5)} */
+  get subNivel() {
+    let nivel = this.nivel;
+    while(nivel > 5){
+      nivel = nivel - 6;
+    }
+    return nivel;
+  }
   get procentagem() {
     return Number.parseFloat(((this.#rpm / 2000) - this.nivel).toFixed(13));
   }
@@ -50,41 +58,22 @@ export default class GyroBall {
   }
 
   get corHEX() {
-    const mnq5 = (valor = 0) => {
-      if (valor > 5) {
-        valor = valor - 6;
-        return mnq5(valor);
-      }
-      return valor;
-    }
-
     const local = new ArmazenamentoLocal();
 
-    let rgb;
-    switch (mnq5(this.nivel)) {
+    switch (this.subNivel) {
       case 0:
-        rgb = local.corNivel0;
-        break;
+        return local.corNivel0;
       case 1:
-        rgb = local.corNivel1;
-        break;
+        return local.corNivel1;
       case 2:
-        rgb = local.corNivel2;
-        break;
+        return local.corNivel2;
       case 3:
-        rgb = local.corNivel3;
-        break;
+        return local.corNivel3;
       case 4:
-        rgb = local.corNivel4;
-        break;
+        return local.corNivel4;
       case 5:
-        rgb = local.corNivel5;
-        break;
-      default:
-        console.warn("Erro?");
-        break;
+        return local.corNivel5;
     }
-    return rgb;
   }
 
 }

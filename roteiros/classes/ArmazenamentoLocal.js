@@ -65,37 +65,43 @@ export default class ArmazenamentoLocal {
 
   set corNivel5(valor){
     window.localStorage.setItem('corNivel5', valor);
+    document.documentElement.style.setProperty("--nivel5", this.corNivel5);
   }
   get corNivel5(){
     return window.localStorage.getItem('corNivel5') ?? '#ff00ff';
   }
   set corNivel4(valor){
     window.localStorage.setItem('corNivel4', valor);
+    this.definirCoresVarCSS();
   }
   get corNivel4(){
     return window.localStorage.getItem('corNivel4') ?? '#ff0000';
   }
   set corNivel3(valor){
     window.localStorage.setItem('corNivel3', valor);
+    this.definirCoresVarCSS();
   }
   get corNivel3(){
     return window.localStorage.getItem('corNivel3') ?? '#ffff00';
   }
   set corNivel2(valor){
     window.localStorage.setItem('corNivel2', valor);
+    this.definirCoresVarCSS();
   }
   get corNivel2(){
     return window.localStorage.getItem('corNivel2') ?? '#00ff00';
   }
   set corNivel1(valor){
     window.localStorage.setItem('corNivel1', valor);
+    this.definirCoresVarCSS();
   }
   get corNivel1(){
     return window.localStorage.getItem('corNivel1') ?? '#00ffff';
   }
   set corNivel0(valor){
     window.localStorage.setItem('corNivel0', valor);
-  }
+    this.definirCoresVarCSS();
+    }
   get corNivel0(){
     return window.localStorage.getItem('corNivel0') ?? '#0000ff';
   }
@@ -107,6 +113,7 @@ export default class ArmazenamentoLocal {
     window.localStorage.removeItem('corNivel2');
     window.localStorage.removeItem('corNivel1');
     window.localStorage.removeItem('corNivel0');
+    this.definirCoresVarCSS();
   }
 
   resetar(){
@@ -117,6 +124,21 @@ export default class ArmazenamentoLocal {
     window.localStorage.removeItem('inverterPrioridadeGrave');
   }
 
+  definirCoresVarCSS(){
+    document.documentElement.style.setProperty("--nivel0", this.corNivel0);
+    document.documentElement.style.setProperty("--nivel1", this.corNivel1);
+    document.documentElement.style.setProperty("--nivel2", this.corNivel2);
+    document.documentElement.style.setProperty("--nivel3", this.corNivel3);
+    document.documentElement.style.setProperty("--nivel4", this.corNivel4);
+    document.documentElement.style.setProperty("--nivel5", this.corNivel5);
+
+    document.documentElement.style.setProperty("--tdnivel0", this.corNivel0 + '7F');
+    document.documentElement.style.setProperty("--tdnivel1", this.corNivel1 + '7F');
+    document.documentElement.style.setProperty("--tdnivel2", this.corNivel2 + '7F');
+    document.documentElement.style.setProperty("--tdnivel3", this.corNivel3 + '7F');
+    document.documentElement.style.setProperty("--tdnivel4", this.corNivel4 + '7F');
+    document.documentElement.style.setProperty("--tdnivel5", this.corNivel5 + '7F');
+  }
 
   #theme(valor) {
     let theme;

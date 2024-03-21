@@ -130,36 +130,24 @@ inverterPrioridadeGrave.addEventListener('input', ()=>{
 
 nivel5.addEventListener('change', ()=>{
   local.corNivel5 = nivel5.value;
-  despacharEventoCor();
 });
 nivel4.addEventListener('change', ()=>{
   local.corNivel4 = nivel4.value;
-  despacharEventoCor();
 });
 nivel3.addEventListener('change', ()=>{
   local.corNivel3 = nivel3.value;
-  despacharEventoCor();
 });
 nivel2.addEventListener('change', ()=>{
   local.corNivel2 = nivel2.value;
-  despacharEventoCor();
 });
 nivel1.addEventListener('change', ()=>{
   local.corNivel1 = nivel1.value;
-  despacharEventoCor();
 });
 nivel0.addEventListener('change', ()=>{
   local.corNivel0 = nivel0.value;
-  despacharEventoCor();
 });
 
-function despacharEventoCor(){
-  const event = new Event("trocarDeCores");
-  document.dispatchEvent(event);
-}
-
 recuperaDados();
-
 function recuperaDados(){
   ignorarGrave.value = local.ignorarGrave;
   limiteGrave.value = local.limiteGrave;
@@ -198,7 +186,6 @@ btnDark.addEventListener('input', ()=>{
 resetarCores.addEventListener('click', ()=>{
   local.resetarCores();
   recuperarCores();
-  despacharEventoCor();
 });
 
 export default telaConfig;
