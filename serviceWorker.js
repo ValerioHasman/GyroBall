@@ -1,4 +1,4 @@
-const CACHE_NAME = 'gb-v18';
+const CACHE_NAME = 'gb-v19';
 
 self.addEventListener('install', function (event) {
   event.waitUntil(

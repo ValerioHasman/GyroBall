@@ -76,14 +76,18 @@ const telaConfig = stringEmElemento(`
         data-bs-title="Fator que espande o resultado da soma das frequências agudas."></i></label>
     <input type="range" class="form-range" min="0.01" max="10" step="0.01" id="multiplicadorAgudo" />
   </div>
-  <div class="form-check form-switch mb-3">
-    <input class="form-check-input" type="checkbox" role="switch" id="inverterPrioridadeGrave" />
-    <label class="form-check-label" for="inverterPrioridadeGrave">
-      Inverter prioridade do grave<i class="bi bi-info-circle ms-2"
-      data-bs-toggle="tooltip" data-bs-placement="right"
-      data-bs-title="Inverter prioridade consiste em ignorar o grave médio interior para considerar o grave externo, essa mudança meche no grave do Fourier. Desativado considera calcular com grave médio interior definido no grave do Fourier anulando o que está a esquerda."></i>
+
+  <div class="container form-check form-switch px-0">
+    <label class="row form-check-label opcoes py-4 rounded-4 align-items-center">
+      <div class="col">
+        Inverter prioridade do grave<i class="bi bi-info-circle ms-2" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="Inverter prioridade consiste em ignorar o grave médio interior para considerar o grave externo, essa mudança meche no grave do Fourier. Desativado considera calcular com grave médio interior definido no grave do Fourier anulando o que está a esquerda."></i>
+      </div>
+      <div class="col-auto">
+        <input class="form-check-input fs-3 m-0" type="checkbox" role="switch" id="inverterPrioridadeGrave" />
+      </div>
     </label>
   </div>
+  <div class="my-5"></div>
 </div>
 `);
 
