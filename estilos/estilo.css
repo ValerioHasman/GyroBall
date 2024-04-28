@@ -5,6 +5,7 @@
   --nivel3: #ffff00; --tdnivel3: #ffff007F;
   --nivel4: #ff0000; --tdnivel4: #ff00007F;
   --nivel5: #ff00ff; --tdnivel5: #ff00ff7F;
+  --tabela-reduzida: .25rem .25rem;
 }
 
 .nivel0 {
@@ -79,6 +80,10 @@ td:has(.td-nivel5){
 
 body {
   overscroll-behavior-y: contain;
+}
+
+.table-sm > :not(caption) > * > * {
+  padding: var(--tabela-reduzida) !important;
 }
 
 .gyroball {

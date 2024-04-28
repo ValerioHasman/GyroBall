@@ -63,6 +63,18 @@ export default class ArmazenamentoLocal {
     return Boolean(window.localStorage.getItem(`inverterPrioridadeGrave`) ?? false);
   }
 
+  set tabelaReduzida(valor) {
+    if (valor) {
+      window.localStorage.setItem(`tabelaReduzida`, `0.5rem 0.5rem`);
+    } else {
+      window.localStorage.setItem(`tabelaReduzida`, `0.25rem 0.25rem`);
+    }
+    this.definirCoresVarCSS();
+  }
+  get tabelaReduzida() {
+    return window.localStorage.getItem(`tabelaReduzida`) ?? `0.25rem 0.25rem`;
+  }
+
   set corNivel5(valor){
     window.localStorage.setItem('corNivel5', valor);
     document.documentElement.style.setProperty("--nivel5", this.corNivel5);
@@ -113,6 +125,8 @@ export default class ArmazenamentoLocal {
     window.localStorage.removeItem('corNivel2');
     window.localStorage.removeItem('corNivel1');
     window.localStorage.removeItem('corNivel0');
+
+    window.localStorage.removeItem('tabelaReduzida');
     this.definirCoresVarCSS();
   }
 
@@ -138,6 +152,8 @@ export default class ArmazenamentoLocal {
     document.documentElement.style.setProperty("--tdnivel3", this.corNivel3 + '7F');
     document.documentElement.style.setProperty("--tdnivel4", this.corNivel4 + '7F');
     document.documentElement.style.setProperty("--tdnivel5", this.corNivel5 + '7F');
+
+    document.documentElement.style.setProperty("--tabela-reduzida", this.tabelaReduzida);
   }
 
   #theme(valor) {

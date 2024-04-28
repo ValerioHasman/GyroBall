@@ -38,6 +38,7 @@ const telaConfig = stringEmElemento(`
       <input type="color" class="form-control form-control-color p-1" id="nivel5" value="#ff00ff" />
     </div>
   </div>
+  <label class="form-label">Tema</label>
   <div class="d-flex gap-2 mb-3">
     <div class="btn-group">
       <input type="radio" class="btn-check" name="tema" id="light" autocomplete="off" />
@@ -46,6 +47,18 @@ const telaConfig = stringEmElemento(`
       <label class="btn btn-outline-theme rounded-end-5" for="dark"><i class="bi bi-moon"></i></label>
     </div>
   </div>
+
+  <div class="container form-check form-switch px-0">
+  <label class="row form-check-label opcoes py-4 rounded-4 align-items-center">
+    <div class="col">
+      Afastamento na tabela
+    </div>
+    <div class="col-auto">
+      <input class="form-check-input fs-3 m-0" type="checkbox" role="switch" id="tabelaReduzida" />
+    </div>
+  </label>
+</div>
+
 
   <h2 class="mt-5 mb-3"><i class="bi bi-soundwave me-2"></i>Calibração</h2>
   <div class="d-flex mb-3">
@@ -104,6 +117,7 @@ const nivel2 = telaConfig.querySelector("#nivel2");
 const nivel1 = telaConfig.querySelector("#nivel1");
 const nivel0 = telaConfig.querySelector("#nivel0");
 const resetarCores = telaConfig.querySelector("#resetarCores");
+const tabelaReduzida = telaConfig.querySelector("#tabelaReduzida");
 
 const ignorarGrave = telaConfig.querySelector("#ignorarGrave");
 const limiteGrave = telaConfig.querySelector("#limiteGrave");
@@ -130,6 +144,9 @@ multiplicadorAgudo.addEventListener('input', ()=>{
 });
 inverterPrioridadeGrave.addEventListener('input', ()=>{
   local.inverterPrioridadeGrave = inverterPrioridadeGrave.checked;
+});
+tabelaReduzida.addEventListener('input', ()=>{
+  local.tabelaReduzida = tabelaReduzida.checked;
 });
 
 nivel5.addEventListener('change', ()=>{
@@ -169,6 +186,7 @@ function recuperarCores(){
   nivel2.value = local.corNivel2;
   nivel1.value = local.corNivel1;
   nivel0.value = local.corNivel0;
+  tabelaReduzida.checked = local.tabelaReduzida == `0.5rem 0.5rem`;
 }
 
 resetar.addEventListener('click', ()=>{
