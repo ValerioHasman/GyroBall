@@ -9,7 +9,7 @@ const telaConfig = stringEmElemento(`
 
   <h2 class="mt-5 mb-3"><i class="bi bi-circle-half me-2"></i>Temas e Cores</h2>
   <div class="d-flex mb-3">
-    <button class="btn btn-outline-theme" id="resetarCores"><i class="bi bi-arrow-counterclockwise"></i></button>
+    <button class="btn btn-secondary bg-gradient" id="resetarCores"><i class="bi bi-arrow-counterclockwise"></i></button>
   </div>
 
   <div class="row mb-3">
@@ -38,31 +38,34 @@ const telaConfig = stringEmElemento(`
       <input type="color" class="form-control form-control-color p-1" id="nivel5" value="#ff00ff" />
     </div>
   </div>
-  <label class="form-label">Tema</label>
-  <div class="d-flex gap-2 mb-3">
-    <div class="btn-group">
-      <input type="radio" class="btn-check" name="tema" id="light" autocomplete="off" />
-      <label class="btn btn-outline-theme rounded-start-5" for="light"><i class="bi bi-brightness-high"></i></label>
-      <input type="radio" class="btn-check" name="tema" id="dark" autocomplete="off"  />
-      <label class="btn btn-outline-theme rounded-end-5" for="dark"><i class="bi bi-moon"></i></label>
-    </div>
-  </div>
 
   <div class="container form-check form-switch px-0">
-  <label class="row form-check-label opcoes py-4 rounded-4 align-items-center">
-    <div class="col">
-      Afastamento na tabela
-    </div>
-    <div class="col-auto">
-      <input class="form-check-input fs-3 m-0" type="checkbox" role="switch" id="tabelaReduzida" />
-    </div>
-  </label>
-</div>
+    <label for="dark" class="row form-check-label opcoes py-4 rounded-4 align-items-center">
+      <div class="col">
+        Tema dark
+      </div>
+      <div class="col-auto">
+        <input class="form-check-input m-0" id="dark" type="checkbox" role="switch" id="tabelaReduzida" />
+      </div>
+    </label>
+  </div>
+
+
+  <div class="container form-check form-switch px-0">
+    <label class="row form-check-label opcoes py-4 rounded-4 align-items-center">
+      <div class="col">
+        Afastamento na tabela
+      </div>
+      <div class="col-auto">
+        <input class="form-check-input m-0" type="checkbox" role="switch" id="tabelaReduzida" />
+      </div>
+    </label>
+  </div>
 
 
   <h2 class="mt-5 mb-3"><i class="bi bi-soundwave me-2"></i>Calibração</h2>
   <div class="d-flex mb-3">
-    <button class="btn btn-outline-theme" id="resetar"><i class="bi bi-arrow-counterclockwise"></i></button>
+    <button class="btn btn-secondary bg-gradient" id="resetar"><i class="bi bi-arrow-counterclockwise"></i></button>
   </div>
 
   <div class="mb-3">
@@ -96,7 +99,7 @@ const telaConfig = stringEmElemento(`
         Inverter prioridade do grave<i class="bi bi-info-circle ms-2" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="Inverter prioridade consiste em ignorar o grave médio interior para considerar o grave externo, essa mudança meche no grave do Fourier. Desativado considera calcular com grave médio interior definido no grave do Fourier anulando o que está a esquerda."></i>
       </div>
       <div class="col-auto">
-        <input class="form-check-input fs-3 m-0" type="checkbox" role="switch" id="inverterPrioridadeGrave" />
+        <input class="form-check-input m-0" type="checkbox" role="switch" id="inverterPrioridadeGrave" />
       </div>
     </label>
   </div>
@@ -124,7 +127,6 @@ const limiteGrave = telaConfig.querySelector("#limiteGrave");
 const multiplicadorGrave = telaConfig.querySelector("#multiplicadorGrave");
 const multiplicadorAgudo = telaConfig.querySelector("#multiplicadorAgudo");
 const inverterPrioridadeGrave = telaConfig.querySelector("#inverterPrioridadeGrave");
-const btnLight = telaConfig.querySelector("#light");
 const btnDark = telaConfig.querySelector("#dark");
 const resetar = telaConfig.querySelector("#resetar");
 
@@ -147,6 +149,10 @@ inverterPrioridadeGrave.addEventListener('input', ()=>{
 });
 tabelaReduzida.addEventListener('input', ()=>{
   local.tabelaReduzida = tabelaReduzida.checked;
+});
+btnDark.addEventListener('input', ()=>{
+  local.theme = btnDark.checked ? 'dark' : 'light';
+  tema();
 });
 
 nivel5.addEventListener('change', ()=>{
@@ -194,16 +200,7 @@ resetar.addEventListener('click', ()=>{
   recuperaDados();
 });
 
-telaConfig.querySelector(`#${local.theme}`).checked = true;
-
-btnLight.addEventListener('input', ()=>{
-  local.theme = 'light';
-  tema();
-});
-btnDark.addEventListener('input', ()=>{
-  local.theme = 'dark';
-  tema();
-});
+btnDark.checked = local.theme != 'dark' ? false : true;
 
 resetarCores.addEventListener('click', ()=>{
   local.resetarCores();
