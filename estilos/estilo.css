@@ -150,6 +150,8 @@ body {
 }
 
 .nav-link {
+  padding-top: 12px;
+  padding-bottom: 12px;
   transition: ease-in 0.4s background-color;
 }
 
@@ -159,7 +161,7 @@ body {
 }
 
 .configuracaoNav{
-  min-width: 40px;
+  min-width: 48px;
   text-align: center;
 }
 
