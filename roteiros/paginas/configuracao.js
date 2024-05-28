@@ -1,6 +1,7 @@
 import ArmazenamentoLocal from "../classes/ArmazenamentoLocal.js";
 import stringEmElemento from "../utilitarios/stringEmElemento.js";
 import tema from "../utilitarios/tema.js";
+import sobre from "./configuracao/sobre.js";
 
 const telaConfig = stringEmElemento(`
 <div class="container mt-5 user-select-none">
@@ -103,6 +104,13 @@ const telaConfig = stringEmElemento(`
       </div>
     </label>
   </div>
+  <div class="container px-0">
+    <div tabindex="0" id="sobre" class="row opcoes py-4 rounded-4">
+      <div class="col">
+      Sobre o App
+      </div>
+    </div>
+  </div>
   <div class="my-5"></div>
 </div>
 `);
@@ -121,6 +129,8 @@ const nivel1 = telaConfig.querySelector("#nivel1");
 const nivel0 = telaConfig.querySelector("#nivel0");
 const resetarCores = telaConfig.querySelector("#resetarCores");
 const tabelaReduzida = telaConfig.querySelector("#tabelaReduzida");
+
+const sobreoapp = telaConfig.querySelector("#sobre");
 
 const ignorarGrave = telaConfig.querySelector("#ignorarGrave");
 const limiteGrave = telaConfig.querySelector("#limiteGrave");
@@ -206,5 +216,7 @@ resetarCores.addEventListener('click', ()=>{
   local.resetarCores();
   recuperarCores();
 });
+
+sobreoapp.addEventListener("click", sobre);
 
 export default telaConfig;

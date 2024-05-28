@@ -54,7 +54,7 @@ export default class Modais{
       throw new TypeError('Função inválida');
     }
     this.#funcaoAoIniciar = ()=>{
-      this.modal.querySelector('button.btn-secondary').focus();
+      this.modal.querySelector('button.btn-secondary')?.focus();
       valor();
       this.modal.removeEventListener('shown.bs.modal', this.funcaoAoIniciar);
     };
@@ -96,7 +96,7 @@ export default class Modais{
 
     modal.insertAdjacentHTML('beforeend',
 `
-<div class="modal-dialog modal-dialog-centered">
+<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
   <div class="modal-content">
     <div class="modal-header">
       <h1 class="modal-title fs-5"></h1>
